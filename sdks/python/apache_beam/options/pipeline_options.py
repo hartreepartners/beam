@@ -414,6 +414,7 @@ class StandardOptions(PipelineOptions):
       'apache_beam.runners.dataflow.dataflow_runner.DataflowRunner',
       'apache_beam.runners.direct.direct_runner.BundleBasedDirectRunner',
       'apache_beam.runners.direct.direct_runner.DirectRunner',
+      'apache_beam.runners.python.python_runner.PythonRunner',
       'apache_beam.runners.direct.direct_runner.SwitchingDirectRunner',
       'apache_beam.runners.interactive.interactive_runner.InteractiveRunner',
       'apache_beam.runners.portability.flink_runner.FlinkRunner',

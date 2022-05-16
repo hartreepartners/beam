@@ -18,7 +18,9 @@
 # Dockerfile for installing the necessary dependencies for building Hadoop.
 # See BUILDING.txt.
 
-FROM ubuntu:20.04
+#FROM ubuntu:20.04
+ARG VARIANT="hirsute"
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -62,12 +64,13 @@ ENV LC_ALL en_US.UTF-8
 ###
 # Set Python3.6 as default
 ###
-RUN alias python=python3.6
+RUN alias python=python3.7
 
 ###
 # Install grpcio-tools mypy-protobuf for `python3 sdks/python/setup.py sdist` to work
 ###
-RUN pip3 install grpcio-tools mypy-protobuf
+RUN pip3 install --upgrade pip && python3 -m pip install --upgrade setuptools && \
+    pip3 install grpcio-tools mypy-protobuf
 
 ###
 # Install useful tools
@@ -79,7 +82,7 @@ RUN pip3 install distlib==0.3.1 yapf==0.29.0 pytest
 # Install Go
 ###
 ENV DOWNLOAD_GO_VERSION=1.17.6
-RUN wget https://golang.org/dl/go${DOWNLOAD_GO_VERSION}.linux-amd64.tar.gz && \
+RUN wget --no-check-certificate https://golang.org/dl/go${DOWNLOAD_GO_VERSION}.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go${DOWNLOAD_GO_VERSION}.linux-amd64.tar.gz
 ENV GOROOT /usr/local/go
 ENV PATH $PATH:$GOROOT/bin
